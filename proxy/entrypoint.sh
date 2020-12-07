@@ -24,7 +24,6 @@ java -XX:+UseG1GC -XX:G1HeapRegionSize=4M -XX:+UnlockExperimentalVMOptions -XX:+
 EOF
 
     chmod +x /run.sh
-    chown mcuser:mcuser /server/run.sh
 fi
 
 su-exec mcuser:mcuser /run.sh
