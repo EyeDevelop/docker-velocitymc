@@ -1,0 +1,40 @@
+version: '3'
+services:
+  proxy:
+    build:
+      context: .
+      dockerfile: proxy/Dockerfile
+    image: eyedevelop/velocitymc
+    container_name: velocitymc
+    volumes:
+      - "./volumes/proxy:/server"
+    ports:
+      - "25565:25577"
+    restart: "no"
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - VELOCITY_VERSION=1.1.2
+      - MEMORY_USAGE=512M
+
+  database:
+    image: postgres:latest
+    container_name: database
+    restart: "no"
+    environment:
+      - POSTGRES_PASSWORD=password
+
+  lobby:
+    build:
+      context: .
+      dockerfile: server/Dockerfile
+    image: eyedevelop/papermc
+    container_name: bcslobby
+    volumes:
+      - "./volumes/servers/jack:/server"
+    restart: "no"
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - PAPER_VERSION=1.16.4-318
+      - MEMORY_USAGE=1G
