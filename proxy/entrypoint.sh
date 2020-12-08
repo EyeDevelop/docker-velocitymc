@@ -10,7 +10,7 @@ if [[ ! -d "/server" ]]; then
     chown -R mcuser:mcuser /server
 fi
 
-if [[ ! -f "/server/bungeecord.jar" ]]; then
+if [[ ! -f "/server/velocity.jar" ]]; then
     echo "Downloading Velocity v${VELOCITY_VERSION}..."
     curl -L -o "/server/velocity.jar" "https://versions.velocitypowered.com/download/${VELOCITY_VERSION}.jar"
     chown mcuser:mcuser /server/velocity.jar
