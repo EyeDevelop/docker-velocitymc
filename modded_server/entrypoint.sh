@@ -28,7 +28,7 @@ if [[ ! -f "/run.sh" ]]; then
     cat << EOF > "/run.sh"
 #!/bin/bash
 cd /server
-java -Xmx\${MEMORY_USAGE} -Xms\${MEMORY_USAGE} -jar paper.jar nogui
+java -Xmx\${MEMORY_USAGE} -Xms\${MEMORY_USAGE} -jar spongeforge.jar nogui
 EOF
 
     chmod +x /run.sh
