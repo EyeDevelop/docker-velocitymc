@@ -10,11 +10,21 @@ if [[ ! -d "/server" ]]; then
     chown -R mcuser:mcuser /server
 fi
 
-if [[ ! -f "/server/spongeforge.jar" ]]; then
-    echo "Downloading SpongeForge v${SF_VERSION}..."
+if [[ ! -f "/server/forge.jar" ]]; then
+    echo "Downloading Minecraft Forge v${FORGE_VERSION}..."
 
-    # Split on the hypen to download the correct jar.
-    curl -L -o "/server/spongeforge.jar" "https://repo.spongepowered.org/maven/org/spongepowered/spongeforge/${SF_VERSION}/spongeforge-${SF_VERSION}.jar"
+    # Install Forge.
+    curl -L -o "/server/forge-installer.jar" "https://files.minecraftforge.net/maven/net/minecraftforge/forge/${FORGE_VERSION}/forge-${FORGE_VERSION}-installer.jar"
+    java -jar /server/forge-installer.jar --installServer /server/
+
+    # Rename the server startup jar.
+    mv "/server/forge-${FORGE_VERSION}.jar" /server/forge.jar
+fi
+
+if [[ ! -f "/server/mods/spongeforge.jar" ]]; then
+    echo "Downloading SpongeForge v${SF_VERSION}..."
+    mkdir -p /server/mods/
+    curl -L -o "/server/mods/spongeforge.jar" "https://repo.spongepowered.org/maven/org/spongepowered/spongeforge/${SF_VERSION}/spongeforge-${SF_VERSION}.jar"
 fi
 
 if [[ ! -f "/server/eula.txt" ]]; then
@@ -28,7 +38,7 @@ if [[ ! -f "/run.sh" ]]; then
     cat << EOF > "/run.sh"
 #!/bin/bash
 cd /server
-java -Xmx\${MEMORY_USAGE} -Xms\${MEMORY_USAGE} -jar spongeforge.jar nogui
+java -Xmx\${MEMORY_USAGE} -Xms\${MEMORY_USAGE} -jar forge.jar nogui
 EOF
 
     chmod +x /run.sh
