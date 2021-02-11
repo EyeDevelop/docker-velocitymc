@@ -17,13 +17,8 @@ if [[ ! -f "/server/velocity.jar" ]]; then
 fi
 
 if [[ ! -f "/run.sh" ]]; then
-    cat << EOF > "/run.sh"
-#!/bin/bash
-cd /server
-java -XX:+UseG1GC -XX:G1HeapRegionSize=4M -XX:+UnlockExperimentalVMOptions -XX:+ParallelRefProcEnabled -XX:+AlwaysPreTouch -Xmx\${MEMORY_USAGE} -Xms\${MEMORY_USAGE} -jar velocity.jar
-EOF
-
+    cp /run_template.sh /run.sh
     chmod +x /run.sh
 fi
 
-su-exec mcuser:mcuser /run.sh
+exec su-exec mcuser:mcuser /run.sh -XX:+UseG1GC -XX:G1HeapRegionSize=4M -XX:+UnlockExperimentalVMOptions -XX:+ParallelRefProcEnabled -XX:+AlwaysPreTouch -jar velocity.jar

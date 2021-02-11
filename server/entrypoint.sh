@@ -26,13 +26,8 @@ if [[ ! -f "/server/eula.txt" ]]; then
 fi
 
 if [[ ! -f "/run.sh" ]]; then
-    cat << EOF > "/run.sh"
-#!/bin/bash
-cd /server
-java -Xmx\${MEMORY_USAGE} -Xms\${MEMORY_USAGE} -jar paper.jar nogui
-EOF
-
+    cp /run_template.sh /run.sh
     chmod +x /run.sh
 fi
 
-su-exec mcuser:mcuser /run.sh
+exec su-exec mcuser:mcuser /run.sh -jar paper.jar

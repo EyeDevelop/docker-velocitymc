@@ -2,6 +2,7 @@ FROM openjdk:8-alpine
 
 RUN apk add -U su-exec bash curl git
 COPY modded_server/entrypoint.sh /entrypoint.sh
+COPY run_server.sh /run_template.sh
 
 ENV PUID 1000
 ENV PGID 1000
