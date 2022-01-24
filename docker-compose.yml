@@ -14,7 +14,7 @@ services:
     environment:
       - PUID=1000
       - PGID=1000
-      - VELOCITY_VERSION=1.1.2
+      - VELOCITY_VERSION=3.1.1
       - MEMORY_USAGE=512M
 
   database:
@@ -36,5 +36,5 @@ services:
     environment:
       - PUID=1000
       - PGID=1000
-      - PAPER_VERSION=1.16.4-318
+      - PAPER_VERSION=1.18.1-175
       - MEMORY_USAGE=1G
