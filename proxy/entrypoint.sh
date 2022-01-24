@@ -1,8 +1,12 @@
 #!/bin/bash
 
+if [[ ! -f "/bin/gosu" ]]; then
+    curl -L -o "/bin/gosu" "https://github.com/tianon/gosu/releases/download/1.14/gosu-amd64"
+    chmod +x /bin/gosu
+fi
+
 if [[ -z "$(id mcuser 2>/dev/null)" ]]; then
-    addgroup -g "${PGID}" mcuser
-    adduser -H -D -G mcuser -u "${PUID}" mcuser
+    useradd -M -u "${PUID}" mcuser
 fi
 
 if [[ ! -d "/server" ]]; then
@@ -22,4 +26,4 @@ if [[ ! -f "/run.sh" ]]; then
     chmod +x /run.sh
 fi
 
-exec su-exec mcuser:mcuser /run.sh -XX:+UseG1GC -XX:G1HeapRegionSize=4M -XX:+UnlockExperimentalVMOptions -XX:+ParallelRefProcEnabled -XX:+AlwaysPreTouch -jar velocity.jar
+exec /bin/gosu mcuser:mcuser /run.sh -XX:+UseG1GC -XX:G1HeapRegionSize=4M -XX:+UnlockExperimentalVMOptions -XX:+ParallelRefProcEnabled -XX:+AlwaysPreTouch -jar velocity.jar

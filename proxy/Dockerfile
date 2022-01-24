@@ -1,6 +1,5 @@
-FROM openjdk:17-alpine
+FROM openjdk:17
 
-RUN apk add -U su-exec bash curl git
 COPY proxy/entrypoint.sh /entrypoint.sh
 COPY run_server.sh /run_template.sh
 
