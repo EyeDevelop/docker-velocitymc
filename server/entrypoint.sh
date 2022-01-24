@@ -15,7 +15,7 @@ if [[ ! -f "/server/paper.jar" ]]; then
 
     # Split on the hypen to download the correct jar.
     IFS="-" read -r -a version_info <<< "$PAPER_VERSION"
-    curl -L -o "/server/paper.jar" "https://papermc.io/api/v1/paper/${version_info[0]}/${version_info[1]}/download"
+    curl -L -o "/server/paper.jar" "https://papermc.io/api/v2/projects/paper/versions/${version_info[0]}/builds/${version_info[1]}/downloads/paper-${version_info[0]}-${version_info[1]}.jar"
 fi
 
 if [[ ! -f "/server/eula.txt" ]]; then

@@ -12,7 +12,8 @@ fi
 
 if [[ ! -f "/server/velocity.jar" ]]; then
     echo "Downloading Velocity v${VELOCITY_VERSION}..."
-    curl -L -o "/server/velocity.jar" "https://versions.velocitypowered.com/download/${VELOCITY_VERSION}.jar"
+    IFS='-' read -r -a version_info <<< "$VELOCITY_VERSION"
+    curl -L -o "/server/velocity.jar" "https://papermc.io/api/v2/projects/velocity/versions/${version_info[0]}/builds/${version_info[1]}/downloads/velocity-${version_info[0]}-${version_info[1]}.jar"
     chown mcuser:mcuser /server/velocity.jar
 fi
 
