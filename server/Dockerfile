@@ -1,4 +1,4 @@
-FROM openjdk:16-alpine
+FROM openjdk:17-alpine
 
 RUN apk add -U su-exec bash curl git
 COPY server/entrypoint.sh /entrypoint.sh
